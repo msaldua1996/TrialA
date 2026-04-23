@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vowels Lesson</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #fffdf5, #eef7ff);
+      color: #1f2937;
+    }
+    header {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 10px 0 0;
+      opacity: 0.95;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: rgba(255,255,255,0.96);
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      backdrop-filter: blur(10px);
+    }
+    nav button {
+      border: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #e0e7ff;
+      color: #1e3a8a;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    nav button:hover, .active-nav {
+      background: #2563eb;
+      color: white;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+    .page {
+      display: none;
+      animation: fade 0.35s ease;
+    }
+    .page.active {
+      display: block;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+      color: #1d4ed8;
+    }
+    .vowel-row, .word-grid, .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .vowel-btn, .choice-btn, .tool-btn {
+      border: none;
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fef3c7;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .vowel-btn:hover, .choice-btn:hover, .tool-btn:hover {
+      transform: translateY(-2px);
+    }
+    .big-letter {
+      font-size: 4rem;
+      text-align: center;
+      margin: 10px 0;
+      color: #7c3aed;
+      font-weight: 900;
+    }
+    .example-box {
+      padding: 16px;
+      border-radius: 16px;
+      background: #eff6ff;
+      margin-top: 12px;
+      font-size: 1.1rem;
+    }
+    .highlight {
+      color: #dc2626;
+      font-weight: 800;
+    }
+    .word-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      align-items: center;
+    }
+    .timer {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #ef4444;
+      margin: 10px 0;
+    }
+    .picker-name {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #059669;
+      margin-top: 12px;
+      text-align: center;
+      min-height: 48px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+    .score {
+      font-weight: 800;
+      color: #7c3aed;
+      margin-top: 12px;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-weight: 700;
+      min-height: 28px;
+    }
+    .success { color: #059669; }
+    .error { color: #dc2626; }
+    ul { line-height: 1.8; }
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Interactive Vowels Lesson</h1>
+    <p>Learn the vowels A, E, I, O, U with examples, games, a timer, and a student picker.</p>
+  </header>
+
+  <nav id="nav"></nav>
+
+  <div class="container">
+    <section class="page active" id="intro">
+      <div class="card">
+        <h2>Welcome</h2>
+        <p>Today we will learn the <strong>vowels</strong> in English.</p>
+        <div class="big-letter">A E I O U</div>
+        <p>Vowels are special letters. They are in many words we read and say every day.</p>
+      </div>
+      <div class="card">
+        <h2>Lesson Goals</h2>
+        <ul>
+          <li>Identify the vowels: <strong>A, E, I, O, U</strong></li>
+          <li>Say the vowel sounds clearly</li>
+          <li>Find vowels in simple words</li>
+          <li>Choose the correct vowel in a word</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="page" id="teach">
+      <div class="card">
+        <h2>Meet the Vowels</h2>
+        <p>Click a vowel to see examples.</p>
+        <div class="vowel-row">
+          <button class="vowel-btn" onclick="showVowel('A')">A</button>
+          <button class="vowel-btn" onclick="showVowel('E')">E</button>
+          <button class="vowel-btn" onclick="showVowel('I')">I</button>
+          <button class="vowel-btn" onclick="showVowel('O')">O</button>
+          <button class="vowel-btn" onclick="showVowel('U')">U</button>
+        </div>
+        <div class="example-box" id="vowelInfo">
+          Click one vowel to begin.
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="practice">
+      <div class="card">
+        <h2>Find the Vowels in the Words</h2>
+        <p>Look at the words below. Can you spot the vowel?</p>
+        <div class="word-grid">
+          <div class="word-card">c<span class="highlight">a</span>t</div>
+          <div class="word-card">b<span class="highlight">e</span>d</div>
+          <div class="word-card">f<span class="highlight">i</span>sh</div>
+          <div class="word-card">d<span class="highlight">o</span>g</div>
+          <div class="word-card">s<span class="highlight">u</span>n</div>
+          <div class="word-card">h<span class="highlight">a</span>t</div>
+          <div class="word-card">p<span class="highlight">e</span>n</div>
+          <div class="word-card">p<span class="highlight">i</span>g</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="game">
+      <div class="card">
+        <h2>Choose the Missing Vowel</h2>
+        <p>Read the word and click the correct vowel.</p>
+        <div class="big-letter" id="questionWord">c_t</div>
+        <div class="game-grid" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="score" id="score">Score: 0 / 0</div>
+        <div class="controls">
+          <button class="tool-btn" onclick="nextQuestion()">Next Word</button>
+          <button class="tool-btn" onclick="resetGame()">Reset Game</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="tools">
+      <div class="card">
+        <h2>Classroom Timer</h2>
+        <div class="timer" id="timerDisplay">60</div>
+        <div class="controls">
+          <button class="tool-btn" onclick="startTimer(60)">1 Minute</button>
+          <button class="tool-btn" onclick="startTimer(120)">2 Minutes</button>
+          <button class="tool-btn" onclick="startTimer(300)">5 Minutes</button>
+          <button class="tool-btn" onclick="stopTimer()">Stop</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Student Picker</h2>
+        <p>Type names separated by commas.</p>
+        <input type="text" id="studentInput" value="Anna, Ben, Carla, David, Ella" />
+        <div class="controls">
+          <button class="tool-btn" onclick="pickStudent()">Pick a Student</button>
+        </div>
+        <div class="picker-name" id="pickedStudent">?</div>
+      </div>
+      <div class="card">
+        <h2>Simple Whiteboard</h2>
+        <p>Type words with vowels here during class.</p>
+        <textarea id="whiteboard" placeholder="Example: cat, bed, fish, dog, sun"></textarea>
+      </div>
+    </section>
+
+    <section class="page" id="wrapup">
+      <div class="card">
+        <h2>Review</h2>
+        <ul>
+          <li>The vowels are <strong>A, E, I, O, U</strong>.</li>
+          <li>Words need vowels.</li>
+          <li>We can listen for vowels and find them in words.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Exit Ticket</h2>
+        <p>Say or write:</p>
+        <ul>
+          <li>One word with <strong>A</strong></li>
+          <li>One word with <strong>E</strong></li>
+          <li>One word with <strong>I</strong></li>
+          <li>One word with <strong>O</strong></li>
+          <li>One word with <strong>U</strong></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    Made for classroom use • Vowels Lesson Webpage
+  </footer>
+
+  <script>
+    const pages = [
+      { id: 'intro', label: 'Intro' },
+      { id: 'teach', label: 'Teach' },
+      { id: 'practice', label: 'Practice' },
+      { id: 'game', label: 'Game' },
+      { id: 'tools', label: 'Tools' },
+      { id: 'wrapup', label: 'Wrap-Up' }
+    ];
+
+    const nav = document.getElementById('nav');
+    pages.forEach((page, index) => {
+      const btn = document.createElement('button');
+      btn.textContent = page.label;
+      if (index === 0) btn.classList.add('active-nav');
+      btn.onclick = () => showPage(page.id, btn);
+      nav.appendChild(btn);
+    });
+
+    function showPage(id, clickedBtn) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-nav'));
+      clickedBtn.classList.add('active-nav');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const vowelData = {
+      A: 'A says /a/. Example words: <strong>apple</strong>, <strong>ant</strong>, <strong>cat</strong>.',
+      E: 'E says /e/. Example words: <strong>egg</strong>, <strong>elephant</strong>, <strong>bed</strong>.',
+      I: 'I says /i/. Example words: <strong>igloo</strong>, <strong>insect</strong>, <strong>fish</strong>.',
+      O: 'O says /o/. Example words: <strong>octopus</strong>, <strong>orange</strong>, <strong>dog</strong>.',
+      U: 'U says /u/. Example words: <strong>umbrella</strong>, <strong>up</strong>, <strong>sun</strong>.'
+    };
+
+    function showVowel(letter) {
+      document.getElementById('vowelInfo').innerHTML = `<div class="big-letter">${letter}</div>${vowelData[letter]}`;
+    }
+
+    const questions = [
+      { word: 'c_t', answer: 'a', choices: ['a', 'e', 'i'] },
+      { word: 'b_d', answer: 'e', choices: ['a', 'e', 'o'] },
+      { word: 'f_sh', answer: 'i', choices: ['i', 'u', 'e'] },
+      { word: 'd_g', answer: 'o', choices: ['o', 'a', 'u'] },
+      { word: 's_n', answer: 'u', choices: ['u', 'i', 'a'] },
+      { word: 'h_t', answer: 'a', choices: ['e', 'a', 'o'] },
+      { word: 'p_n', answer: 'e', choices: ['i', 'u', 'e'] }
+    ];
+
+    let currentQuestion = 0;
+    let correct = 0;
+    let total = 0;
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('questionWord').textContent = q.word;
+      const choicesBox = document.getElementById('choices');
+      choicesBox.innerHTML = '';
+      q.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = choice.toUpperCase();
+        btn.onclick = () => checkAnswer(choice);
+        choicesBox.appendChild(btn);
+      });
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('feedback').className = 'feedback';
+    }
+
+    function checkAnswer(choice) {
+      const q = questions[currentQuestion];
+      total++;
+      const feedback = document.getElementById('feedback');
+      if (choice === q.answer) {
+        correct++;
+        feedback.textContent = 'Correct! Great job!';
+        feedback.className = 'feedback success';
+      } else {
+        feedback.textContent = `Try again next time. The correct vowel is ${q.answer.toUpperCase()}.`;
+        feedback.className = 'feedback error';
+      }
+      document.getElementById('score').textContent = `Score: ${correct} / ${total}`;
+    }
+
+    function nextQuestion() {
+      currentQuestion = (currentQuestion + 1) % questions.length;
+      renderQuestion();
+    }
+
+    function resetGame() {
+      currentQuestion = 0;
+      correct = 0;
+      total = 0;
+      document.getElementById('score').textContent = 'Score: 0 / 0';
+      renderQuestion();
+    }
+
+    renderQuestion();
+
+    let timerInterval;
+    function startTimer(seconds) {
+      stopTimer();
+      let remaining = seconds;
+      document.getElementById('timerDisplay').textContent = remaining;
+      timerInterval = setInterval(() => {
+        remaining--;
+        document.getElementById('timerDisplay').textContent = remaining;
+        if (remaining <= 0) {
+          stopTimer();
+          document.getElementById('timerDisplay').textContent = 'Time!';
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
+    function pickStudent() {
+      const raw = document.getElementById('studentInput').value;
+      const names = raw.split(',').map(name => name.trim()).filter(Boolean);
+      const picked = names.length ? names[Math.floor(Math.random() * names.length)] : 'Add names first';
+      document.getElementById('pickedStudent').textContent = picked;
+    }
+  </script>
+</body>
+</html>
