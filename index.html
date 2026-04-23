@@ -8,55 +8,40 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #fffdf5, #eef7ff);
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #d9d9dd;
       color: #1f2937;
-    }
-    header {
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      color: white;
-      padding: 28px 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-    header p {
-      margin: 10px 0 0;
-      opacity: 0.95;
     }
     nav {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
       background: rgba(255,255,255,0.96);
       padding: 12px;
-      border-bottom: 1px solid #e5e7eb;
-      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #dbe4ef;
+      backdrop-filter: blur(8px);
     }
     nav button {
       border: none;
-      padding: 10px 14px;
+      padding: 10px 16px;
       border-radius: 999px;
-      background: #e0e7ff;
-      color: #1e3a8a;
+      background: #dfe8d7;
+      color: #4f6f3e;
       font-weight: 700;
       cursor: pointer;
     }
     nav button:hover, .active-nav {
-      background: #2563eb;
+      background: #5d8449;
       color: white;
     }
     .container {
-      max-width: 1100px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 22px;
+      padding: 24px;
     }
     .page {
       display: none;
@@ -69,16 +54,39 @@
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .hero-page {
+      position: relative;
+      min-height: 88vh;
+      background: #98bbe3;
+      border-radius: 0;
+      overflow: hidden;
+      padding: 70px 80px 40px;
+    }
+    .hero-title {
+      position: relative;
+      z-index: 5;
+      margin-top: 85px;
+      font-size: clamp(4rem, 11vw, 9rem);
+      line-height: 0.9;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #2f3553;
+      max-width: 560px;
+    }
     .card {
       background: white;
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 22px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.08);
       margin-bottom: 20px;
     }
     h2 {
       margin-top: 0;
-      color: #1d4ed8;
+      color: #4f6f3e;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    p, li, .example-box, .word-card, .feedback, .score, input, textarea, .tool-btn, .vowel-btn, .choice-btn {
+      font-family: Arial, Helvetica, sans-serif;
     }
     .vowel-row, .word-grid, .game-grid {
       display: grid;
@@ -93,7 +101,7 @@
       font-size: 1.2rem;
       font-weight: 700;
       cursor: pointer;
-      background: #fef3c7;
+      background: #f7efcf;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     }
@@ -104,8 +112,9 @@
       font-size: 4rem;
       text-align: center;
       margin: 10px 0;
-      color: #7c3aed;
+      color: #5d8449;
       font-weight: 900;
+      font-family: Arial, Helvetica, sans-serif;
     }
     .example-box {
       padding: 16px;
@@ -139,6 +148,7 @@
       font-weight: 900;
       color: #ef4444;
       margin: 10px 0;
+      font-family: Arial, Helvetica, sans-serif;
     }
     .picker-name {
       font-size: 2rem;
@@ -147,6 +157,7 @@
       margin-top: 12px;
       text-align: center;
       min-height: 48px;
+      font-family: Arial, Helvetica, sans-serif;
     }
     input[type="text"], textarea {
       width: 100%;
@@ -162,7 +173,7 @@
     }
     .score {
       font-weight: 800;
-      color: #7c3aed;
+      color: #5d8449;
       margin-top: 12px;
     }
     .feedback {
@@ -177,32 +188,215 @@
       text-align: center;
       padding: 22px;
       color: #6b7280;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .cloud {
+      position: absolute;
+      background: #edf1f2;
+      border-radius: 999px;
+      z-index: 1;
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: #edf1f2;
+      border-radius: 50%;
+    }
+    .cloud1 { width: 220px; height: 60px; top: 95px; right: 70px; }
+    .cloud1::before { width: 95px; height: 95px; left: 35px; top: -35px; }
+    .cloud1::after { width: 110px; height: 110px; right: 18px; top: -48px; }
+    .cloud2 { width: 170px; height: 54px; top: 130px; left: 760px; }
+    .cloud2::before { width: 70px; height: 70px; left: 22px; top: -24px; }
+    .cloud2::after { width: 84px; height: 84px; right: 26px; top: -32px; }
+    .cloud3 { width: 140px; height: 42px; bottom: 190px; left: 75px; }
+    .cloud3::before { width: 56px; height: 56px; left: 18px; top: -20px; }
+    .cloud3::after { width: 70px; height: 70px; right: 18px; top: -28px; }
+    .sun {
+      position: absolute;
+      right: 175px;
+      top: 260px;
+      width: 105px;
+      height: 105px;
+      background: #d79c14;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .hill-left, .hill-mid, .hill-right {
+      position: absolute;
+      bottom: -90px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .hill-left {
+      left: -120px;
+      width: 660px;
+      height: 300px;
+      background: #5f8a52;
+    }
+    .hill-mid {
+      left: 320px;
+      width: 860px;
+      height: 430px;
+      background: #7ea46f;
+      opacity: 0.97;
+    }
+    .hill-right {
+      right: -120px;
+      width: 760px;
+      height: 420px;
+      background: #648f58;
+    }
+    .tree-trunk, .tree-trunk-small, .tree-trunk-right, .tree-trunk-right2 {
+      position: absolute;
+      background: #2c2330;
+      z-index: 4;
+      border-radius: 20px 20px 0 0;
+    }
+    .tree-trunk { left: 520px; bottom: 0; width: 34px; height: 290px; }
+    .tree-trunk-small { left: 680px; bottom: 0; width: 18px; height: 150px; }
+    .tree-trunk-right { right: 330px; bottom: 160px; width: 26px; height: 135px; transform: rotate(-12deg); }
+    .tree-trunk-right2 { right: 255px; bottom: 170px; width: 18px; height: 96px; transform: rotate(-16deg); }
+    .leaf { position: absolute; background: #6d985d; border-radius: 50%; z-index: 3; }
+    .leaf.alt { background: #7faa70; }
+    .leaf.dark { background: #5d8750; }
+    .windmill { position: absolute; z-index: 2; }
+    .pole { position: absolute; width: 14px; background: #eef3ee; border-radius: 10px; }
+    .hub { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #7ba06d; }
+    .blade { position: absolute; width: 18px; height: 150px; background: #eef3ee; border-radius: 16px; transform-origin: bottom center; }
+    .panel { position: absolute; width: 88px; height: 56px; border: 4px solid #d7ddd3; background: linear-gradient(180deg, #7fa36e, #9cb58c); transform: skew(-12deg) rotate(4deg); z-index: 3; }
+    .panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(to right, rgba(255,255,255,0.8) 0 2px, transparent 2px), linear-gradient(to bottom, rgba(255,255,255,0.8) 0 2px, transparent 2px);
+      background-size: 20px 100%, 100% 16px;
+      opacity: 0.75;
+    }
+    .panel-stand { position: absolute; width: 8px; height: 48px; background: #eef3ee; z-index: 2; transform: rotate(12deg); }
+    .person {
+      position: absolute;
+      right: 148px;
+      bottom: 245px;
+      z-index: 5;
+      width: 150px;
+      height: 250px;
+    }
+    .person .head { position: absolute; top: 18px; left: 62px; width: 28px; height: 28px; background: #ffb26b; border-radius: 50%; }
+    .person .hair { position: absolute; top: 12px; left: 58px; width: 32px; height: 18px; background: #1e2430; border-radius: 16px 16px 10px 10px; }
+    .person .body { position: absolute; top: 42px; left: 48px; width: 52px; height: 86px; background: #7aa06d; border-radius: 12px; transform: skew(2deg); }
+    .person .arm1, .person .arm2 { position: absolute; width: 14px; height: 62px; background: #ff9b3f; border-radius: 10px; top: 40px; }
+    .person .arm1 { left: 28px; transform: rotate(70deg); transform-origin: top center; }
+    .person .arm2 { right: 28px; transform: rotate(-70deg); transform-origin: top center; }
+    .person .leg1, .person .leg2 { position: absolute; width: 20px; height: 95px; background: #3e6299; border-radius: 10px; top: 122px; }
+    .person .leg1 { left: 58px; transform: rotate(2deg); }
+    .person .leg2 { left: 92px; transform: rotate(-35deg); transform-origin: top left; }
+    .person .shoe1, .person .shoe2 { position: absolute; width: 38px; height: 12px; background: #2c1a16; border-radius: 10px; }
+    .person .shoe1 { left: 54px; top: 214px; }
+    .person .shoe2 { left: 110px; top: 182px; transform: rotate(18deg); }
+    .flower, .flower2 { position: absolute; width: 30px; height: 30px; background: #d89b12; border-radius: 50%; z-index: 4; }
+    .flower::after, .flower2::after { content: ''; position: absolute; width: 8px; height: 8px; background: #f6ecc8; border-radius: 50%; left: 11px; top: 11px; }
+    .stem, .stem2 { position: absolute; width: 5px; background: #5d8449; z-index: 3; }
+    .wind-line { position: absolute; color: #e7ece8; font-size: 90px; z-index: 2; font-family: Arial, Helvetica, sans-serif; }
+    @media (max-width: 900px) {
+      .hero-page { padding: 36px 28px 20px; min-height: 70vh; }
+      .hero-title { margin-top: 40px; max-width: 320px; }
+      .cloud2, .tree-trunk-right, .tree-trunk-right2, .person, .sun, .flower, .flower2, .stem, .stem2, .wind-line, .panel, .panel-stand { display: none; }
+      .hill-left { width: 420px; height: 220px; }
+      .hill-mid { left: 120px; width: 520px; height: 280px; }
+      .hill-right { width: 420px; height: 260px; }
+      .tree-trunk { left: 300px; height: 220px; }
+      .tree-trunk-small { left: 420px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Interactive Vowels Lesson</h1>
-    <p>Learn the vowels A, E, I, O, U with examples, games, a timer, and a student picker.</p>
-  </header>
+  <header style="display:none;"></header>
 
   <nav id="nav"></nav>
 
   <div class="container">
     <section class="page active" id="intro">
-      <div class="card">
-        <h2>Welcome</h2>
-        <p>Today we will learn the <strong>vowels</strong> in English.</p>
-        <div class="big-letter">A E I O U</div>
-        <p>Vowels are special letters. They are in many words we read and say every day.</p>
+      <div class="hero-page">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        <div class="sun"></div>
+
+        <div class="wind-line" style="top:240px; right:440px;">﹋</div>
+        <div class="wind-line" style="top:330px; right:420px;">﹋</div>
+
+        <div class="windmill" style="left:760px; top:230px; width:260px; height:420px;">
+          <div class="pole" style="left:118px; top:120px; height:270px;"></div>
+          <div class="hub" style="left:116px; top:112px;"></div>
+          <div class="blade" style="left:116px; top:-20px; transform: rotate(32deg);"></div>
+          <div class="blade" style="left:116px; top:-18px; transform: rotate(122deg);"></div>
+          <div class="blade" style="left:116px; top:-18px; transform: rotate(242deg);"></div>
+        </div>
+
+        <div class="windmill" style="left:900px; top:320px; width:200px; height:280px; transform: scale(0.78);">
+          <div class="pole" style="left:94px; top:90px; height:190px;"></div>
+          <div class="hub" style="left:92px; top:82px;"></div>
+          <div class="blade" style="left:92px; top:-40px; height:130px; transform: rotate(35deg);"></div>
+          <div class="blade" style="left:92px; top:-40px; height:130px; transform: rotate(125deg);"></div>
+          <div class="blade" style="left:92px; top:-40px; height:130px; transform: rotate(245deg);"></div>
+        </div>
+
+        <div class="panel" style="left:744px; top:470px;"></div>
+        <div class="panel-stand" style="left:784px; top:516px;"></div>
+
+        <div class="hill-left"></div>
+        <div class="hill-mid"></div>
+        <div class="hill-right"></div>
+
+        <div class="leaf alt" style="left:426px; bottom:158px; width:180px; height:110px;"></div>
+        <div class="leaf dark" style="left:490px; bottom:185px; width:92px; height:70px;"></div>
+        <div class="leaf" style="left:455px; bottom:216px; width:72px; height:78px;"></div>
+        <div class="leaf alt" style="left:520px; bottom:222px; width:86px; height:82px;"></div>
+        <div class="leaf alt" style="left:570px; bottom:232px; width:82px; height:80px;"></div>
+        <div class="leaf dark" style="left:523px; bottom:260px; width:72px; height:82px;"></div>
+        <div class="leaf" style="left:565px; bottom:266px; width:66px; height:72px;"></div>
+        <div class="leaf alt" style="left:595px; bottom:252px; width:68px; height:72px;"></div>
+        <div class="tree-trunk"></div>
+
+        <div class="leaf dark" style="left:604px; bottom:90px; width:128px; height:95px;"></div>
+        <div class="leaf alt" style="left:650px; bottom:112px; width:102px; height:80px;"></div>
+        <div class="leaf" style="left:670px; bottom:145px; width:82px; height:92px;"></div>
+        <div class="tree-trunk-small"></div>
+
+        <div class="leaf alt" style="right:304px; bottom:244px; width:78px; height:118px; transform: rotate(8deg);"></div>
+        <div class="leaf" style="right:340px; bottom:258px; width:92px; height:136px; transform: rotate(-8deg);"></div>
+        <div class="tree-trunk-right"></div>
+
+        <div class="leaf dark" style="right:242px; bottom:224px; width:58px; height:88px; transform: rotate(-10deg);"></div>
+        <div class="leaf" style="right:212px; bottom:238px; width:52px; height:74px; transform: rotate(8deg);"></div>
+        <div class="tree-trunk-right2"></div>
+
+        <div class="stem" style="right:500px; bottom:212px; height:42px;"></div>
+        <div class="flower" style="right:487px; bottom:242px;"></div>
+        <div class="stem2" style="right:446px; bottom:194px; height:54px;"></div>
+        <div class="flower2" style="right:431px; bottom:230px;"></div>
+
+        <div class="person">
+          <div class="hair"></div>
+          <div class="head"></div>
+          <div class="arm1"></div>
+          <div class="arm2"></div>
+          <div class="body"></div>
+          <div class="leg1"></div>
+          <div class="leg2"></div>
+          <div class="shoe1"></div>
+          <div class="shoe2"></div>
+        </div>
+
+        <div class="hero-title">Alphabet</div>
       </div>
       <div class="card">
         <h2>Lesson Goals</h2>
         <ul>
-          <li>Identify the vowels: <strong>A, E, I, O, U</strong></li>
-          <li>Say the vowel sounds clearly</li>
-          <li>Find vowels in simple words</li>
-          <li>Choose the correct vowel in a word</li>
+          <li>Recognize uppercase and lowercase letters</li>
+          <li>Say the letters clearly</li>
+          <li>Identify vowels in the alphabet</li>
+          <li>Match simple words to their beginning letters</li>
         </ul>
       </div>
     </section>
